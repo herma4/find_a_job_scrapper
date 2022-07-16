@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 q = input("검색어| 업종, 직무 및 회사명")# 검색어 입력
 limit = 50 # 페이지 당 최대 검색결과 수 노출 수
-INDEED_URL = "https://kr.indeed.com/jobs?q=" + str(q) + "&limit=" + str(limit)
+INDEED_URL = "https://indeed.com/jobs?q=" + str(q) + "&limit=" + str(limit)
 
 def extract_indeed_page():
     url = INDEED_URL 
@@ -30,5 +30,14 @@ def extract_indeed_jobs(last_page):
             companyName = result.find("span", class_="companyName").text
             companyLocation = result.find("div", class_="companyLocation").text
             jobUrl = "https://kr.indeed.com" + result.find("a")["href"]
-            jobs.append({"title": title, "companyName": companyName, "companyLocation": companyLocation, "jobUrl": jobUrl})
+            jobs.append({
+                "title": title, 
+                "companyName": companyName, 
+                "companyLocation": companyLocation, 
+                "jobUrl": jobUrl})
+    return jobs
+
+def get_jobs():
+    last_page = extract_indeed_page()
+    jobs = extract_indeed_jobs(last_page)
     return jobs

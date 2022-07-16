@@ -1,5 +1,5 @@
-from IndeedCrawler import extract_indeed_page, extract_indeed_jobs
+from IndeedCrawler import get_jobs as get_indeed_jobs
+from save import to_csv
 
-last_indeed_page = extract_indeed_page()
-jobs = extract_indeed_jobs(last_indeed_page)
-print(jobs)
+indeed_jobs = get_indeed_jobs()
+to_csv(indeed_jobs)
